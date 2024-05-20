@@ -5,26 +5,29 @@ class ProductModel {
   String type;
   double rate;
   String image;
+  String warrentyDate;
 
   ProductModel(
       {required this.discription,
       this.id,
+      required this.warrentyDate,
       required this.image,
       required this.name,
       required this.rate,
       required this.type});
   Map<String, dynamic> toHson(id) => {
         "id": id,
-        "image":image,
+        "image": image,
         "name": name,
         "discription": discription,
         "type": type,
-        "rate": rate
+        "rate": rate,"warrentyDate":warrentyDate
       };
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
-      image: json["image"],
+      warrentyDate: json["warrentyDate"],
+        image: json["image"],
         discription: json["discription"],
         id: json["id"],
         name: json["name"],

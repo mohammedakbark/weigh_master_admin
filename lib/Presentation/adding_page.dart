@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:weigh_master_admin/Data/Model/productModel.dart';
 import 'package:weigh_master_admin/Data/db_service.dart';
@@ -13,6 +11,7 @@ class AddProductPage extends StatelessWidget {
   String selectedItem = "";
   final _formKey = GlobalKey<FormState>();
   List<String> items = ["Buy", "Rent"];
+  DateTime? pickedDate;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -123,33 +122,63 @@ class AddProductPage extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * .2,
+                height: MediaQuery.of(context).size.height * .05,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        shape: const BeveledRectangleBorder()),
+                    onPressed: () async {
+                      await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(2000),
+                              lastDate: DateTime(2100))
+                          .then((value) => pickedDate = value);
+                    },
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Warrenty Date",
+                          style: TextStyle(fontWeight: FontWeight.w700),
+                        ),
+                        Icon(Icons.calendar_month),
+                      ],
+                    )),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               Consumer<DbService>(builder: (context, dbSer, chuld) {
                 return ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        // if (dbSer.imageurl != null) {
-                        dbSer
-                            .storeProduct(ProductModel(
-                                image: dbSer.imageurl ?? "",
-                                discription: productDiscription.text,
-                                name: productnameController.text,
-                                rate: double.parse(productRateController.text),
-                                type: selectedItem))
-                            .then((value) {
+                        if (dbSer.imageurl != null && pickedDate != null) {
+                          dbSer
+                              .storeProduct(ProductModel(
+                                  warrentyDate: pickedDate.toString(),
+                                  image: dbSer.imageurl!,
+                                  discription: productDiscription.text,
+                                  name: productnameController.text,
+                                  rate:
+                                      double.parse(productRateController.text),
+                                  type: selectedItem))
+                              .then((value) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    backgroundColor: Colors.green,
+                                    content:
+                                        Text("Product Added Successful!")));
+                            Navigator.of(context).pop();
+                          });
+                        } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                   backgroundColor: Colors.green,
-                                  content: Text("Product Added Successful!")));
-                          Navigator.of(context).pop();
-                        });
-                        // }
-                        // else {
-                        //   ScaffoldMessenger.of(context).showSnackBar(
-                        //       const SnackBar(
-                        //           backgroundColor: Colors.green,
-                        //           content: Text(
-                        //               "Somthing went wrong ,Try again!")));
-                        // }
+                                  content:
+                                      Text("Somthing went wrong ,Try again!")));
+                        }
                       }
                     },
                     child: const Text("Submit"));

@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Weigh Master Admin',
-        home: HomePage(),
+        home: AddProductPage(),
       ),
     );
   }

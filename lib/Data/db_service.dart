@@ -1,5 +1,5 @@
+import 'dart:developer';
 import 'dart:html';
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -20,7 +20,7 @@ class DbService with ChangeNotifier {
   pickImageinWeb() {
     print("In");
     SettableMetadata metadata = SettableMetadata(contentType: "image/jpeg");
-    // processingImage = true;
+    processingImage = true;
     notifyListeners();
     FileUploadInputElement input = FileUploadInputElement()..accept = 'image/*';
 
@@ -38,19 +38,20 @@ class DbService with ChangeNotifier {
 
           imageBytes = data;
 
-          blob = Blob(data);
-          // processingImage = false;
+          // blob = Blob(data);
+          log(blob.toString());
+          processingImage = false;
           notifyListeners();
           try {
-             print("1111111111111111111");
+            print("1111111111111111111");
             final now = DateTime.now();
             var snapshot = await fs
                 .ref()
                 .child("productImage/$now")
-                .putBlob(blob, metadata);
- print("2222222222222222");
+                .putData(data, metadata);
+            print("2222222222222222");
             String downloadUrl = await snapshot.ref.getDownloadURL();
- print("33333333333333333333");
+            print("33333333333333333333");
             imageurl = downloadUrl;
             print("=====${imageurl}====");
             print(downloadUrl);
