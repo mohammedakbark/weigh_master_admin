@@ -45,8 +45,8 @@ class _OrderAndRentState extends State<OrderAndRent> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              ConstantList(),
-              ConstantList(),
+              ConstantList(isOrder: true,),
+              ConstantList(isOrder: false,),
             ],
           ),
         ),

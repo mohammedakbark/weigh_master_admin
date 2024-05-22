@@ -16,15 +16,14 @@ class CustomSideBar extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             color: Colors.blue,
           ),
-          width: MediaQuery.of(context).size.width/10,
+          // width: MediaQuery.of(context).size.width/10,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Icon(
               icon,
               color: Colors.white,
             ),
-          )
-      ),
+          )),
     );
   }
 }

@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weigh_master_admin/Data/db_service.dart';
 
-class WarrentyPage extends StatelessWidget {
-  const WarrentyPage({super.key});
+class ServicePage extends StatelessWidget {
+  const ServicePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Consumer<DbService>(builder: (context, service, child) {
       return FutureBuilder(
-          future: service.getWarrentyHistory(),
+          future: service.getServiceHistory(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
@@ -18,10 +18,10 @@ class WarrentyPage extends StatelessWidget {
               );
             }
 
-            final data = service.warrentyHistory;
+            final data = service.serviceHistory;
             return data.isEmpty
                 ? const Center(
-                    child: Text("No Warrenty Request"),
+                    child: Text("No Service Request"),
                   )
                 : ListView.separated(
                     itemBuilder: (context, index) {
@@ -77,7 +77,7 @@ class WarrentyPage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const Text(
-                                  "Warrenty  Info.",
+                                  "Service Info.",
                                   style: TextStyle(
                                       fontSize: 22,
                                       fontWeight: FontWeight.w500),
@@ -88,7 +88,7 @@ class WarrentyPage extends StatelessWidget {
 
                                 // Text(data[index].),
                                 Text(
-                                  "Complaint: ${data[index].additionalComment}",
+                                  "Complaint: ${data[index].compalaint}",
                                   style: const TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600),

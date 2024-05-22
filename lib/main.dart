@@ -25,9 +25,14 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<DbService>(create: (_) => DbService())
       ],
       child: MaterialApp(
+        theme: ThemeData(
+          // backgroundColor: Colors.red,
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
+          useMaterial3: true,
+        ),
         debugShowCheckedModeBanner: false,
         title: 'Weigh Master Admin',
-        home: AddProductPage(),
+        home: HomePage(),
       ),
     );
   }

@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:weigh_master_admin/Data/db_service.dart';
 import 'package:weigh_master_admin/Presentation/adding_page.dart';
+import 'package:weigh_master_admin/Presentation/buy_request.dart';
 import 'package:weigh_master_admin/constants/custom_side_bar.dart';
 
 class HomePageDetails extends StatefulWidget {
@@ -24,10 +25,26 @@ class _HomePageDetailsState extends State<HomePageDetails> {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomSideBar(icon: CupertinoIcons.shopping_cart, onClicked: () {}),
-            CustomSideBar(icon: Icons.message, onClicked: () {}),
+            // CustomSideBar(
+            //     icon: CupertinoIcons.shopping_cart,
+            //     onClicked: () {
+            //       Navigator.of(context).push(MaterialPageRoute(
+            //           builder: (context) => ViewBuyRequest()));
+            //     }),
+            // SizedBox(
+            //   height: 20,
+            // ),
+            // CustomSideBar(
+            //     icon: Icons.message,
+            //     onClicked: () {
+            //       Navigator.of(context).push(MaterialPageRoute(
+            //           builder: (context) => AddProductPage()));
+            //     }),
+            // SizedBox(
+            //   height: 20,
+            // ),
             CustomSideBar(
                 icon: Icons.add,
                 onClicked: () {
@@ -66,9 +83,9 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                                 decoration: BoxDecoration(
                                     color: Colors.blueGrey,
                                     image: DecorationImage(
-                                        fit: BoxFit.fill  ,
-                                        image:
-                                            AssetImage("assets/crane1.jpg"))),
+                                        fit: BoxFit.fill,
+                                        image: NetworkImage(
+                                            data[index]["image"]))),
                               ),
                               Text(
                                 data[index]["name"],

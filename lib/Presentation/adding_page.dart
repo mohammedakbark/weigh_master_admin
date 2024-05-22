@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:weigh_master_admin/Data/Model/productModel.dart';
+import 'package:weigh_master_admin/Data/Model/product_model.dart';
 import 'package:weigh_master_admin/Data/db_service.dart';
+import 'package:weigh_master_admin/constants/custom_colors.dart';
 
 class AddProductPage extends StatelessWidget {
   AddProductPage({super.key});
@@ -15,6 +16,13 @@ class AddProductPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: CustomColors.backgroundGreen,
+      appBar: AppBar(
+        title: const Text(
+          "Add Product",
+          style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700),
+        ),
+      ),
       body: Center(
         child: Form(
           key: _formKey,
@@ -161,8 +169,7 @@ class AddProductPage extends StatelessWidget {
                                   image: dbSer.imageurl!,
                                   discription: productDiscription.text,
                                   name: productnameController.text,
-                                  rate:
-                                      double.parse(productRateController.text),
+                                  rate: productRateController.text,
                                   type: selectedItem))
                               .then((value) {
                             ScaffoldMessenger.of(context).showSnackBar(
